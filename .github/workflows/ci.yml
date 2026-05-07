@@ -20,10 +20,10 @@ jobs:
           dotnet-version: 10.0.x
 
       - name: Check Skir code formatting
-        run: npx --yes --package skir@1.2.12 --package "file:../csharp-generator" skir format --ci
+        run: npx skir format --ci
 
       - name: Run Skir-to-CSharp codegen
-        run: npx --yes --package skir@1.2.12 --package "file:../csharp-generator" skir gen
+        run: npx skir gen
 
       - name: Build
         run: dotnet build CsharpExample.csproj -warnaserror
