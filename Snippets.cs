@@ -132,22 +132,13 @@ static class Snippets
         // }
 
         // Deserialize from JSON. Both dense and readable formats are accepted.
-        var reserializedJohn = serializer.FromJson(johnDenseJson);
-        Console.WriteLine(reserializedJohn.Name); // John Doe
-
-        // Pass keepUnrecognizedValues: true to preserve fields added by newer schema
-        // versions so they survive a round-trip through older client code.
-        var johnWithUnrecognized = serializer.FromJson(johnDenseJson, keepUnrecognizedValues: true);
-        Console.WriteLine(johnWithUnrecognized.Name); // John Doe
+        var johnReserializedFromJson = serializer.FromJson(johnDenseJson);
+        Console.WriteLine(johnReserializedFromJson.Name); // John Doe
 
         // Serialize to compact binary format.
         var johnBytes = serializer.ToBytes(john);
-        var johnFromBytes = serializer.FromBytes(johnBytes);
-        Console.WriteLine(johnFromBytes.Name); // John Doe
-
-        // keepUnrecognizedValues is also available on FromBytes.
-        var johnFromBytesWithUnrecognized = serializer.FromBytes(johnBytes, keepUnrecognizedValues: true);
-        Console.WriteLine(johnFromBytesWithUnrecognized.Name); // John Doe
+        var johnReserializedFromBytes = serializer.FromBytes(johnBytes);
+        Console.WriteLine(johnReserializedFromBytes.Name); // John Doe
 
         // =============================================================================
         // PRIMITIVE SERIALIZERS
@@ -285,8 +276,7 @@ static class Snippets
         Console.WriteLine(addUser.Number); // 23456
 
         // Suppress "unused variable" warnings for demo variables.
-        _ = (statuses, johnBytes, johnFromBytes, johnWithUnrecognized,
-             johnFromBytesWithUnrecognized, descriptorFromJson, addUser);
+        _ = (statuses, johnBytes, johnReserializedFromBytes, descriptorFromJson, addUser);
     }
 
     private sealed class InfoTextVisitor : SubscriptionStatus.IVisitor<string>
