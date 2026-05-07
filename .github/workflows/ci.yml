@@ -25,6 +25,9 @@ jobs:
       - name: Run Skir-to-CSharp codegen
         run: npx skir gen
 
+      - name: Restore
+        run: dotnet restore CsharpExample.csproj
+
       - name: Build
         run: dotnet build CsharpExample.csproj -warnaserror
 
